@@ -10,6 +10,8 @@ module Html
   )
   where
 
+-- * Types
+
 newtype Html
   = Html String
 
@@ -18,6 +20,8 @@ newtype Structure
 
 type Title
   = String
+
+-- * EDSL
 
 html_ :: Title -> Structure -> Html
 html_ title content =
@@ -34,23 +38,27 @@ p_ = Structure . el "p" . escape
 h1_ :: String -> Structure
 h1_ = Structure . el "h1" . escape
 
-el :: String -> String -> String
-el tag content =
-  "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
-
 append_ :: Structure -> Structure -> Structure
 append_ c1 c2 =
   Structure (getStructureString c1 <> getStructureString c2)
 
-getStructureString :: Structure -> String
-getStructureString content =
-  case content of
-    Structure str -> str
+-- * Render
 
 render :: Html -> String
 render html =
   case html of
     Html str -> str
+
+-- * Utilities
+
+el :: String -> String -> String
+el tag content =
+  "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
+
+getStructureString :: Structure -> String
+getStructureString content =
+  case content of
+    Structure str -> str
 
 escape :: String -> String
 escape =
