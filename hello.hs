@@ -38,13 +38,13 @@ html_ title content =
   Html 
     (el "html"
       (el "head" (el "title" title)
-        <> (el "body" (getStructureString content))
+        <> el "body" (getStructureString content)
       )
     )
 
 -- written using lambda function for the sake of the exercise
 h1_ :: String -> Structure
-h1_ = Structure . ((\arg -> el arg) "h1")
+h1_ = Structure . (\arg -> el arg) "h1"
 
 p_ ::  String -> Structure
 p_ = Structure . el "p"
