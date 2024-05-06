@@ -7,6 +7,7 @@ module Html.Internal
   , h1_
   , li_
   , ul_
+  , ol_
   , append_
   , render
   )
@@ -44,9 +45,14 @@ h1_ = Structure . el "h1" . escape
 li_ :: Structure -> Structure
 li_ (Structure content) = Structure (el "li" content)
 
+htmlList :: String -> [Structure] -> Structure
+htmlList listType structures = Structure (el listType (concat (map getStructureString (map li_ structures))))
 
 ul_ :: [Structure] -> Structure
-ul_ structures = Structure (el "ul" (concat (map getStructureString (map li_ structures))))
+ul_ = htmlList "ul"
+
+ol_ :: [Structure] -> Structure
+ol_ = htmlList "ol"
 
 append_ :: Structure -> Structure -> Structure
 append_ c1 c2 =
