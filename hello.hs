@@ -15,7 +15,7 @@ myhtml =
           (p_ "Paragraph #2")
         )
         (ol_
-          [ p_ "item 1"
+          [ code_ "item 1"
           , p_ "item 2"
           , p_ "item 3"
           ])
