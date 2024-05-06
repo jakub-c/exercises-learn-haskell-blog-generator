@@ -5,10 +5,13 @@ module Html.Internal
   , html_
   , p_
   , h1_
+  , li_
+  , ul_
   , append_
   , render
   )
   where
+import Text.XHtml (content)
 
 -- * Types
 
@@ -38,9 +41,17 @@ p_ = Structure . el "p" . escape
 h1_ :: String -> Structure
 h1_ = Structure . el "h1" . escape
 
+li_ :: Structure -> Structure
+li_ (Structure content) = Structure (el "li" content)
+
+
+ul_ :: [Structure] -> Structure
+ul_ structures = Structure (el "ul" (concat (map getStructureString (map li_ structures))))
+
 append_ :: Structure -> Structure -> Structure
 append_ c1 c2 =
   Structure (getStructureString c1 <> getStructureString c2)
+
 
 -- * Render
 
