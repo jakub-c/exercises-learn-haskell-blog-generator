@@ -72,6 +72,9 @@ render html =
 
 -- * Utilities
 
+print :: Show a => a -> IO ()
+print = putStrLn . show
+
 el :: String -> String -> String
 el tag content =
   "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
