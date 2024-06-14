@@ -9,7 +9,6 @@ module Html.Internal
   , li_
   , ul_
   , ol_
-  , append_
   , render
   )
   where
@@ -58,9 +57,16 @@ ul_ = htmlList "ul"
 ol_ :: [Structure] -> Structure
 ol_ = htmlList "ol"
 
-append_ :: Structure -> Structure -> Structure
-append_ c1 c2 =
-  Structure (getStructureString c1 <> getStructureString c2)
+-- my answer to Semigroup refactoring excericse from
+--  https://learn-haskell.blog/04-markup/03-displaying_results.html
+
+-- instance Semigroup Structure where
+--   (<>) :: Structure -> Structure -> Structure
+--   Structure x <> Structure y = Structure (x ++ y)
+
+instance Semigroup Structure where
+  (<>) c1 c2 =
+    Structure (getStructureString c1 <> getStructureString c2)
 
 
 -- * Render
