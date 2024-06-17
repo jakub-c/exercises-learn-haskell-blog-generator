@@ -5,7 +5,7 @@ module Html.Internal
   , html_
   , p_
   , code_
-  , h1_
+  , h_
   , li_
   , ul_
   , ol_
@@ -13,6 +13,7 @@ module Html.Internal
   )
   where
 import Text.XHtml (content)
+import Numeric.Natural
 
 -- * Types
 
@@ -35,6 +36,13 @@ html_ title content =
         <> el "body" (getStructureString content)
       )
     )
+
+h_ :: Natural -> String -> Structure
+-- solution from the book
+-- h_ n = Structure . el ("h" <> show n) . escape
+
+-- my own solution
+h_ level content = Structure (el ("h" ++ show level) content)
 
 p_ :: String -> Structure
 p_ = Structure . el "p" . escape
